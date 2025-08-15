@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getDogs, deleteDog } from "./managers/dogManager.js";
+import { getDogs, deleteDog } from "../../managers/dogManager.js";
 
 export const DogList = ({ onViewDog, onAddDog }) => {
   const [dogs, setDogs] = useState([]);
