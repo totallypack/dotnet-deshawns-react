@@ -5,8 +5,9 @@ import { CityList } from "./components/cities";
 import { DogList } from "./components/dogs";
 import { DogDetails } from "./components/dogs";
 import { AddDogForm } from "./components/dogs";
-import { WalkerList } from "./components/walkers/WalkerList";
-import { AvailableDogsForWalker } from "./components/walkers/AvailableDogsForWalker";
+import { WalkerList } from "./components/walkers";
+import { AvailableDogsForWalker } from "./components/walkers";
+import { EditWalkerForm } from "./components/walkers";
 
 function App() {
   const [currentView, setCurrentView] = useState("dogs"); // Start with dogs as home
@@ -55,6 +56,10 @@ function App() {
     setCurrentView("walkers"); // Go back to walkers list after assigning
   };
 
+  const handleWalkerUpdated = () => {
+    setCurrentView("walkers"); // Go back to walkers list after updating
+  };
+
   const renderCurrentView = () => {
     switch (currentView) {
       case "dogs":
@@ -76,12 +81,11 @@ function App() {
         );
       case "edit-walker":
         return (
-          <div>
-            <h2>Edit Walker (Coming in Next Step)</h2>
-            <button className="btn btn-secondary" onClick={handleBackToWalkers}>
-              Back to Walkers
-            </button>
-          </div>
+          <EditWalkerForm 
+            walkerId={selectedWalkerId}
+            onBack={handleBackToWalkers} 
+            onWalkerUpdated={handleWalkerUpdated}
+          />
         );
       case "cities":
         return <CityList />;

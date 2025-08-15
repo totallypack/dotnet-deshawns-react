@@ -14,6 +14,23 @@ export const getAvailableDogsForWalker = async (walkerId) => {
   return res.json();
 };
 
+export const updateWalker = async (id, walkerData) => {
+  const res = await fetch(`/api/walker/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(walkerData),
+  });
+  
+  if (!res.ok) {
+    const error = await res.text();
+    throw new Error(error);
+  }
+  
+  return res.json();
+};
+
 export const deleteWalker = async (id) => {
   const res = await fetch(`/api/walker/${id}`, {
     method: "DELETE",
