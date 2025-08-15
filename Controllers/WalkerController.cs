@@ -107,6 +107,64 @@ namespace DeShawnsAPI.Controllers
 
             return Ok(availableDogs);
         }
+        
+                // PUT /api/walker/{id}
+        [HttpPut("{id}")]
+        public ActionResult<Walker> UpdateWalker(int id, [FromBody] Walker updatedWalker)
+        {
+            var existingWalker = _walkers.FirstOrDefault(w => w.Id == id);
+            if (existingWalker == null)
+            {
+                return NotFound();
+            }
+
+            // Validation
+            if (string.IsNullOrWhiteSpace(updatedWalker.Name))
+            {
+                return BadRequest("Walker name is required");
+            }
+
+            // Validate that all city IDs exist
+            if (updatedWalker.Cities != null)
+            {
+                var invalidCityIds = updatedWalker.Cities
+                    .Where(c => !_cities.Any(city => city.Id == c.Id))
+                    .Select(c => c.Id)
+                    .ToList();
+
+                if (invalidCityIds.Any())
+                {
+                    return BadRequest($"Invalid city IDs: {string.Join(", ", invalidCityIds)}");
+                }
+            }
+
+            // Update walker name
+            existingWalker.Name = updatedWalker.Name;
+
+            // Update walker-city relationships (implementing Part 3 logic)
+            // Step 1: Remove current WalkerCity items associated with the walker
+            _walkerCities = _walkerCities.Where(wc => wc.WalkerId != id).ToList();
+
+            // Step 2: Add new WalkerCity items for each city in the updated walker
+            if (updatedWalker.Cities != null)
+            {
+                foreach (City city in updatedWalker.Cities)
+                {
+                    WalkerCity newWC = new WalkerCity
+                    {
+                        WalkerId = id,
+                        CityId = city.Id
+                    };
+                    newWC.Id = _walkerCities.Count > 0 ? _walkerCities.Max(wc => wc.Id) + 1 : 1;
+                    _walkerCities.Add(newWC);
+                }
+            }
+
+            // Return walker with updated cities
+            existingWalker.Cities = GetCitiesForWalker(id);
+
+            return Ok(existingWalker);
+         }
 
         // DELETE /api/walker/{id}
         [HttpDelete("{id}")]

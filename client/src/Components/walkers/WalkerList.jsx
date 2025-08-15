@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { getWalkers, deleteWalker } from "../../managers/walkerManager.js";
-import { getCities } from "../../managers/cityManager.js";
+import { getWalkers, deleteWalker } from "./managers/walkerManager.js";
+import { getCities } from "./managers/cityManager.js";
 
 export const WalkerList = ({ onViewAvailableDogs, onEditWalker }) => {
   const [walkers, setWalkers] = useState([]);
