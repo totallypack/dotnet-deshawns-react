@@ -1,20 +1,92 @@
+// client/src/App.jsx
 import { useState } from "react";
 import "./App.css";
-import { CityList } from "./Components/cities/CityList";
+import { CityList } from "./components/cities";
+import { DogList } from "./components/dogs";
+import { DogDetails } from "./components/dogs";
+import { AddDogForm } from "./components/dogs";
+import { WalkerList } from "./components/walkers/WalkerList";
+import { AvailableDogsForWalker } from "./components/walkers/AvailableDogsForWalker";
 
 function App() {
   const [currentView, setCurrentView] = useState("dogs"); // Start with dogs as home
+  const [selectedDogId, setSelectedDogId] = useState(null);
+  const [selectedWalkerId, setSelectedWalkerId] = useState(null);
+  const [selectedWalkerName, setSelectedWalkerName] = useState("");
+
+  // Navigation handlers for dogs
+  const handleViewDog = (dogId) => {
+    setSelectedDogId(dogId);
+    setCurrentView("dog-details");
+  };
+
+  const handleAddDog = () => {
+    setCurrentView("add-dog");
+  };
+
+  const handleBackToDogs = () => {
+    setSelectedDogId(null);
+    setCurrentView("dogs");
+  };
+
+  const handleDogAdded = () => {
+    setCurrentView("dogs"); // Go back to dogs list after adding
+  };
+
+  // Navigation handlers for walkers
+  const handleViewAvailableDogs = (walkerId, walkerName) => {
+    setSelectedWalkerId(walkerId);
+    setSelectedWalkerName(walkerName);
+    setCurrentView("available-dogs");
+  };
+
+  const handleEditWalker = (walkerId) => {
+    setSelectedWalkerId(walkerId);
+    setCurrentView("edit-walker");
+  };
+
+  const handleBackToWalkers = () => {
+    setSelectedWalkerId(null);
+    setSelectedWalkerName("");
+    setCurrentView("walkers");
+  };
+
+  const handleDogAssigned = () => {
+    setCurrentView("walkers"); // Go back to walkers list after assigning
+  };
 
   const renderCurrentView = () => {
     switch (currentView) {
       case "dogs":
-        return <div><h2>Dogs (Coming Soon)</h2><p>This will be the home page with all dogs.</p></div>;
+        return <DogList onViewDog={handleViewDog} onAddDog={handleAddDog} />;
+      case "dog-details":
+        return <DogDetails dogId={selectedDogId} onBack={handleBackToDogs} />;
+      case "add-dog":
+        return <AddDogForm onBack={handleBackToDogs} onDogAdded={handleDogAdded} />;
       case "walkers":
-        return <div><h2>Walkers (Coming Soon)</h2></div>;
+        return <WalkerList onViewAvailableDogs={handleViewAvailableDogs} onEditWalker={handleEditWalker} />;
+      case "available-dogs":
+        return (
+          <AvailableDogsForWalker 
+            walkerId={selectedWalkerId} 
+            walkerName={selectedWalkerName}
+            onBack={handleBackToWalkers} 
+            onDogAssigned={handleDogAssigned}
+          />
+        );
+      case "edit-walker":
+        return (
+          <div>
+            <h2>Edit Walker (Coming in Next Step)</h2>
+            <button className="btn btn-secondary" onClick={handleBackToWalkers}>
+              Back to Walkers
+            </button>
+          </div>
+        );
       case "cities":
         return <CityList />;
       default:
-        return <div><h2>Dogs (Coming Soon)</h2></div>;
+        return <DogList onViewDog={handleViewDog} onAddDog={handleAddDog} />;
     }
   };
 
@@ -26,13 +98,13 @@ function App() {
           <span className="navbar-brand">DeShawn's Dog Walking</span>
           <div className="navbar-nav">
             <button
-              className={`nav-link btn ${currentView === "dogs" ? "active" : ""}`}
+              className={`nav-link btn ${currentView === "dogs" || currentView === "dog-details" || currentView === "add-dog" ? "active" : ""}`}
               onClick={() => setCurrentView("dogs")}
             >
               Dogs
             </button>
             <button
-              className={`nav-link btn ${currentView === "walkers" ? "active" : ""}`}
+              className={`nav-link btn ${currentView === "walkers" || currentView === "available-dogs" || currentView === "edit-walker" ? "active" : ""}`}
               onClick={() => setCurrentView("walkers")}
             >
               Walkers
