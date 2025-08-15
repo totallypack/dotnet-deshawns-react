@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { createDog } from "./managers/dogManager.js";
-import { getCities } from "./managers/cityManager.js";
+import { createDog } from "../../managers/dogManager.js";
+import { getCities } from "../../managers/cityManager.js";
 
 export const AddDogForm = ({ onBack, onDogAdded }) => {
   const [formData, setFormData] = useState({
