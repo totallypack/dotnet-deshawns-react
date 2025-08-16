@@ -1,38 +1,682 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Root Variables for Consistent Theming */
+:root {
+  --primary-color: #4a90e2;        /* Trustworthy blue */
+  --secondary-color: #7b68ee;      /* Gentle purple */
+  --accent-color: #ff6b6b;         /* Warm coral */
+  --success-color: #51cf66;        /* Friendly green */
+  --warning-color: #ffd43b;        /* Sunny yellow */
+  --danger-color: #ff8787;         /* Soft red */
+  --light-bg: #f8fffe;             /* Very light mint */
+  --card-bg: #ffffff;              /* Pure white */
+  --text-primary: #2d3748;         /* Warm dark gray */
+  --text-secondary: #4a5568;       /* Medium gray */
+  --border-color: #e2e8f0;         /* Light border */
+  --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.1);
+  --border-radius: 12px;
+  --border-radius-small: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f8fffe 0%, #f0f9ff 100%);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
 .App {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fffe 0%, #f0f9ff 100%);
+}
+
+/* Enhanced Navigation */
+.navbar {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+  box-shadow: var(--shadow-medium);
+  padding: 1rem 0;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.navbar-brand {
+  font-weight: 700 !important;
+  font-size: 1.5rem !important;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-brand::before {
+  content: "🐕";
+  font-size: 1.8rem;
+  animation: wag 2s ease-in-out infinite;
+}
+
+@keyframes wag {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  75% { transform: rotate(-10deg); }
+}
+
+.nav-link.btn {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 2px solid transparent !important;
+  color: white !important;
+  font-weight: 500 !important;
+  padding: 0.5rem 1.5rem !important;
+  margin: 0 0.25rem !important;
+  border-radius: var(--border-radius-small) !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+}
+
+.nav-link.btn:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-2px);
+  color: white !important;
+}
+
+.nav-link.btn.active {
+  background: white !important;
+  color: var(--primary-color) !important;
+  border-color: white !important;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Container Styling */
+.container {
+  max-width: 1200px;
+  padding: 2rem 1rem;
+}
+
+/* Enhanced Cards - Center and fit content */
+.card {
+  background: var(--card-bg) !important;
+  border: none !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: var(--shadow-soft) !important;
+  transition: box-shadow 0.3s ease !important;
+  overflow: hidden;
+  margin: 1.5rem auto !important;
+  width: fit-content;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-medium) !important;
+}
+
+.card-body {
+  padding: 2rem !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 1rem !important;
+  width: 100%;
+  min-width: 250px;
+}
+
+/* Remove Bootstrap column constraints for better centering */
+.row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  gap: 1rem !important;
+  margin: 0 !important;
+}
+
+.row > [class*="col-"] {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+/* Ensure cards in rows are centered */
+.row .card {
+  margin: 0 !important;
+}
+
+.card-title {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  margin-bottom: 1rem !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Card content centering */
+.card-title {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  margin-bottom: 1rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  text-align: center !important;
+  width: 100%;
+}
+
+.card-text {
+  text-align: center !important;
+  margin-bottom: 1rem !important;
+  width: 100%;
+}
+
+/* Center all card content */
+.card .text-center {
+  text-align: center !important;
+}
+
+.card .d-flex {
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 0.5rem !important;
+}
+
+.card .btn {
+  margin: 0.25rem !important;
+}
+
+/* Special handling for different card types */
+.clickable-card {
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  width: fit-content;
+  margin: 1.5rem auto !important;
+}
+
+.clickable-card:hover {
+  box-shadow: var(--shadow-medium);
+}
+
+/* Form cards should be wider */
+.form-container,
+.card.form-card {
+  width: 100% !important;
+  max-width: 600px !important;
+  margin: 2rem auto !important;
+}
+
+/* Specific adjustments for different card contents */
+.walker-list .card,
+.dog-list .card,
+.city-list .card {
+  min-width: 280px;
+  max-width: 350px;
+}
+
+.dog-details .card {
+  width: 100% !important;
+  max-width: none !important;
+}
+.btn {
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 500 !important;
+  border-radius: var(--border-radius-small) !important;
+  padding: 0.875rem 2rem !important;
+  margin: 0.25rem !important;
+  transition: box-shadow 0.3s ease !important;
+  border: none !important;
+  text-decoration: none !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: var(--shadow-soft);
+  min-width: fit-content;
+}
+
+.btn:hover {
+  box-shadow: var(--shadow-medium);
+  /* Removed transform: translateY(-2px); */
+}
+
+.btn-sm {
+  padding: 0.5rem 1.25rem !important;
+  font-size: 0.875rem !important;
+}
+
+.btn-lg {
+  padding: 1rem 2.5rem !important;
+  font-size: 1.125rem !important;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+  color: white !important;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, var(--success-color) 0%, #40c057 100%) !important;
+  color: white !important;
+}
+
+.btn-success::before { content: "✅"; }
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--danger-color) 0%, #ff6b6b 100%) !important;
+  color: white !important;
+}
+
+.btn-danger::before { content: "🗑️"; }
+
+.btn-warning {
+  background: linear-gradient(135deg, var(--warning-color) 0%, #ffdd59 100%) !important;
+  color: var(--text-primary) !important;
+}
+
+.btn-warning::before { content: "⚠️"; }
+
+.btn-secondary {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%) !important;
+  color: white !important;
+}
+
+.btn-outline-danger {
+  border: 2px solid var(--danger-color) !important;
+  color: var(--danger-color) !important;
+  background: transparent !important;
+}
+
+.btn-outline-danger:hover {
+  background: var(--danger-color) !important;
+  color: white !important;
+}
+
+/* Enhanced Forms - Better spacing */
+.form-control, .form-select {
+  border: 2px solid var(--border-color) !important;
+  border-radius: var(--border-radius-small) !important;
+  padding: 1rem !important;
+  margin-bottom: 1rem !important;
+  font-family: 'Poppins', sans-serif !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+  background: var(--card-bg) !important;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25) !important;
+  /* Removed transform: translateY(-1px); */
+}
+
+.form-label {
+  font-weight: 500 !important;
+  color: var(--text-primary) !important;
+  margin-bottom: 0.75rem !important;
+  font-size: 1rem !important;
+}
+
+.form-group, .mb-3 {
+  margin-bottom: 2rem !important;
+}
+
+.form-check {
+  margin-bottom: 1rem !important;
+  padding-left: 2rem !important;
+}
+
+.form-check-input {
+  border-radius: var(--border-radius-small) !important;
+  border: 2px solid var(--border-color) !important;
+  margin-top: 0.25rem !important;
+}
+
+.form-check-input:checked {
+  background-color: var(--success-color) !important;
+  border-color: var(--success-color) !important;
+}
+
+/* Enhanced Alerts - Better spacing */
+.alert {
+  border: none !important;
+  border-radius: var(--border-radius) !important;
+  padding: 1.5rem 2rem !important;
+  margin-bottom: 2rem !important;
+  font-weight: 500 !important;
+  box-shadow: var(--shadow-soft);
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* Button group spacing */
+.d-flex.gap-2 {
+  gap: 1rem !important;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
-.App-link {
-  color: #61dafb;
+.d-flex.gap-3 {
+  gap: 1.5rem !important;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Center navigation items */
+.d-flex.justify-content-between {
+  align-items: center;
+  text-align: center;
+}
+
+/* Info sections spacing */
+.info-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin-top: 3rem;
+  border-left: 4px solid var(--primary-color);
+  text-align: center;
+}
+
+/* Loading states - center everything */
+.loading {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+}
+
+/* No data states - better spacing */
+.no-data {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-secondary);
+}
+
+/* Form containers - center and space */
+.form-container {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 3rem;
+  box-shadow: var(--shadow-soft);
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.alert-success {
+  background: linear-gradient(135deg, #d3f9d8 0%, #b2f2bb 100%) !important;
+  color: #2b8a3e !important;
+}
+
+.alert-success::before { content: "✅ "; }
+
+.alert-danger {
+  background: linear-gradient(135deg, #ffe0e6 0%, #ffc9da 100%) !important;
+  color: #c92a2a !important;
+}
+
+.alert-danger::before { content: "❌ "; }
+
+.alert-warning {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%) !important;
+  color: #e67e22 !important;
+}
+
+.alert-warning::before { content: "⚠️ "; }
+
+.alert-info {
+  background: linear-gradient(135deg, #d0ebff 0%, #a5d8ff 100%) !important;
+  color: #1864ab !important;
+}
+
+.alert-info::before { content: "ℹ️ "; }
+
+/* Enhanced Page Headers */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+h1 { font-size: 2.5rem !important; }
+h2 { font-size: 2rem !important; }
+h3 { font-size: 1.5rem !important; }
+
+/* List Group Enhancements - Remove bouncing */
+.list-group-item {
+  border: 2px solid var(--border-color) !important;
+  border-radius: var(--border-radius-small) !important;
+  margin-bottom: 1rem !important;
+  background: var(--card-bg) !important;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
+  padding: 1.5rem !important;
+}
+
+.list-group-item:hover {
+  box-shadow: var(--shadow-soft);
+  border-color: var(--primary-color) !important;
+  /* Removed transform: translateY(-2px); */
+}
+
+/* Clickable elements - Remove bouncing */
+.clickable-card {
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.clickable-card:hover {
+  box-shadow: var(--shadow-medium);
+  /* Removed transform: translateY(-3px); */
+}
+
+/* Remove paw prints hover effect for cleaner look */
+.card:hover::after {
+  display: none;
+}
+
+/* Loading States */
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+}
+
+.loading::before {
+  content: "🐕";
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+  animation: bounce 1.5s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Responsive Design - Better card centering */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem 0.5rem;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .navbar-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .card-body {
+    padding: 1.5rem !important;
+  }
+  
+  .btn {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.9rem !important;
+    margin: 0.25rem !important;
+  }
+  
+  .walker-list .card,
+  .dog-list .card,
+  .city-list .card {
+    min-width: 250px;
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .row {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  
+  .row > [class*="col-"] {
+    width: 100% !important;
+    max-width: 400px !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 2rem !important;
+  }
+}
+
+/* Special Pet-Themed Touches */
+.text-muted {
+  color: var(--text-secondary) !important;
+}
+
+/* Add paw prints to hover states */
+.card:hover::after {
+  content: "🐾";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  opacity: 0.3;
+  font-size: 1.5rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 0.3; transform: scale(1); }
+}
+
+/* Empty State Styling */
+.no-data {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+}
+
+.no-data::before {
+  content: "🐕‍🦺";
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+/* Footer-like info sections */
+.info-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border-left: 4px solid var(--primary-color);
+}
+
+/* Make forms more inviting */
+.form-container {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 2rem;
+}
+
+/* Add these classes to your existing App.css */
+
+/* Badge Enhancements */
+.badge {
+  font-size: 0.75rem !important;
+  padding: 0.35rem 0.65rem !important;
+  border-radius: var(--border-radius-small) !important;
+  font-weight: 500 !important;
+}
+
+.bg-success {
+  background: linear-gradient(135deg, var(--success-color) 0%, #40c057 100%) !important;
+}
+
+.bg-primary {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+}
+
+/* Text Color Enhancements */
+.text-success {
+  color: var(--success-color) !important;
+  font-weight: 500;
+}
+
+.text-warning {
+  color: #e67e22 !important;
+  font-weight: 500;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+/* Border Variants */
+.border-primary {
+  border-color: var(--primary-color) !important;
+  border-width: 2px !important;
+}
+
+/* Font Weight Utilities */
+.fw-bold {
+  font-weight: 700 !important;
+}
+
+.fw-medium {
+  font-weight: 500 !important;
+}
+
+/* Flexible Layout Helpers */
+.flex-grow-1 {
+  flex-grow: 1 !important;
+}
+
+/* Enhanced Form Controls */
+.form-control:focus {
+  background-color: var(--card-bg) !important;
+}
+
+/* Spacing for mobile */
+@media (max-width: 768px) {
+  .d-flex.gap-2 {
+    flex-direction: column;
+    gap: 0.5rem !important;
+  }
+  
+  .d-flex.gap-3 {
+    flex-direction: column;
+    gap: 0.75rem !important;
   }
 }

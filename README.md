@@ -4,6 +4,15 @@ In this project I build a full stack application with a React client and .NET AP
 
 In DeShawn's Dog Walking, a city can have many walkers in it, and a walker can walk in many cities. Therefore, the relationship between walker and city is many-to-many.
 
+This project demonstrates proficiency in:
+Full-stack development
+React ecosystem
+.NET Web API development
+RESTful API design
+Database relationship modeling
+User experience design
+Problem-solving and debugging
+
 # ERD AND WIREFRAME:
 ![ERD](images/DogERD.png)
 
