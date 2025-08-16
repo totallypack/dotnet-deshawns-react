@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using DeShawnsAPI.Models;
+using DeShawnsAPI.Services;
 
 namespace DeShawnsAPI.Controllers
 {
@@ -7,26 +8,20 @@ namespace DeShawnsAPI.Controllers
     [Route("api/[controller]")]
     public class CityController : ControllerBase
     {
-        // In-memory data for now (you can replace with database later)
-        private static List<City> _cities = new List<City>
-        {
-            new City { Id = 1, Name = "Nashville" },
-            new City { Id = 2, Name = "Memphis" },
-            new City { Id = 3, Name = "Knoxville" }
-        };
+        private readonly DataService _dataService = DataService.Instance;
 
         // GET /api/city
         [HttpGet]
         public ActionResult<List<City>> GetCities()
         {
-            return Ok(_cities);
+            return Ok(_dataService.Cities);
         }
 
         // GET /api/city/{id}
         [HttpGet("{id}")]
         public ActionResult<City> GetCity(int id)
         {
-            var city = _cities.FirstOrDefault(c => c.Id == id);
+            var city = _dataService.Cities.FirstOrDefault(c => c.Id == id);
             if (city == null)
             {
                 return NotFound();
@@ -44,30 +39,30 @@ namespace DeShawnsAPI.Controllers
             }
 
             // Check if city already exists
-            if (_cities.Any(c => c.Name.ToLower() == newCity.Name.ToLower()))
+            if (_dataService.Cities.Any(c => c.Name.ToLower() == newCity.Name.ToLower()))
             {
                 return BadRequest("City already exists");
             }
 
             // Generate new ID
-            newCity.Id = _cities.Count > 0 ? _cities.Max(c => c.Id) + 1 : 1;
+            newCity.Id = _dataService.GetNextCityId();
             
-            _cities.Add(newCity);
+            _dataService.Cities.Add(newCity);
             
             return CreatedAtAction(nameof(GetCity), new { id = newCity.Id }, newCity);
         }
 
-        // DELETE /api/city/{id} (optional - not in user stories but useful)
+        // DELETE /api/city/{id}
         [HttpDelete("{id}")]
         public ActionResult DeleteCity(int id)
         {
-            var city = _cities.FirstOrDefault(c => c.Id == id);
+            var city = _dataService.Cities.FirstOrDefault(c => c.Id == id);
             if (city == null)
             {
                 return NotFound();
             }
 
-            _cities.Remove(city);
+            _dataService.Cities.Remove(city);
             return NoContent();
         }
     }

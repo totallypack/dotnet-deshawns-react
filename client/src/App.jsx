@@ -1,13 +1,12 @@
-// client/src/App.jsx
 import { useState } from "react";
 import "./App.css";
-import { CityList } from "./components/cities";
-import { DogList } from "./components/dogs";
-import { DogDetails } from "./components/dogs";
-import { AddDogForm } from "./components/dogs";
-import { WalkerList } from "./components/walkers";
-import { AvailableDogsForWalker } from "./components/walkers";
-import { EditWalkerForm } from "./components/walkers";
+import { CityList } from "./components/cities/CityList";
+import { DogList } from "./components/dogs/DogList";
+import { DogDetails } from "./components/dogs/DogDetails";
+import { AddDogForm } from "./components/dogs/AddDogForm";
+import { WalkerList } from "./components/walkers/WalkerList";
+import { AvailableDogsForWalker } from "./components/walkers/AvailableDogsForWalker";
+import { EditWalkerForm } from "./components/walkers/EditWalkerForm";
 
 function App() {
   const [currentView, setCurrentView] = useState("dogs"); // Start with dogs as home
@@ -97,27 +96,27 @@ function App() {
   return (
     <div className="App">
       {/* Navigation Bar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+      <nav className="navbar navbar-expand-lg navbar-dark">
         <div className="container-fluid">
           <span className="navbar-brand">DeShawn's Dog Walking</span>
-          <div className="navbar-nav">
+          <div className="navbar-nav d-flex flex-row">
             <button
               className={`nav-link btn ${currentView === "dogs" || currentView === "dog-details" || currentView === "add-dog" ? "active" : ""}`}
               onClick={() => setCurrentView("dogs")}
             >
-              Dogs
+              🐕 Dogs
             </button>
             <button
               className={`nav-link btn ${currentView === "walkers" || currentView === "available-dogs" || currentView === "edit-walker" ? "active" : ""}`}
               onClick={() => setCurrentView("walkers")}
             >
-              Walkers
+              🚶‍♀️ Walkers
             </button>
             <button
               className={`nav-link btn ${currentView === "cities" ? "active" : ""}`}
               onClick={() => setCurrentView("cities")}
             >
-              Cities
+              🏙️ Cities
             </button>
           </div>
         </div>
